@@ -1,8 +1,8 @@
 package main
 
 import (
-	capture "github.com/experimentsOfCV/capture"
-	display "github.com/experimentsOfCV/display"
+	capture "./capture"
+	display "./display"
 )
 
 func main() {
