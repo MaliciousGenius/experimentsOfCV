@@ -1,11 +1,12 @@
 package main
 
 import (
-
+	capture "github.com/experimentsOfCV/capture"
+	display "github.com/experimentsOfCV/display"
 )
 
 func main() {
-	sourceCapture := GetWebcam()
+	sourceCapture := capture.GetWebcam()
 	defer sourceCapture.Release()
-	ShowVideo(sourceCapture)
+	display.ShowVideo(sourceCapture)
 }
