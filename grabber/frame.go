@@ -6,16 +6,14 @@ import (
 )
 
 func GetFrame( capture *opencv.Capture ) *opencv.IplImage {
-	var frame *opencv.IplImage
-
-	if capture.GrabFrame() {
-		data := capture.RetrieveFrame(1)
-		if data == nil {
-			log.Println("Frame is nil")
-		}
-	frame = data.Clone()
-	} else {
+	if !capture.GrabFrame() {
 		log.Println("Not grabe source capture")
+	}
+
+	frame := capture.RetrieveFrame(1)
+
+	if frame == nil {
+		log.Println("Frame is nil")
 	}
 
 	return frame
