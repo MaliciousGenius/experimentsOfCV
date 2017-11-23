@@ -2,11 +2,28 @@ package main
 
 import (
 	capture "./capture"
-	display "./display"
+	output "./output"
+	grabber "./grabber"
+	processing "./processing"
+	"github.com/lazywei/go-opencv/opencv"
+	"os"
 )
 
 func main() {
-	sourceCapture := capture.GetWebcam()
+	sourceCapture := capture.GetIPcam()
 	defer sourceCapture.Release()
-	display.ShowVideo(sourceCapture)
+
+	window := output.GetWindow()
+	defer window.Destroy()
+
+	for true {
+		frame := grabber.GetFrame(sourceCapture)
+
+		processing.ProcessImage(frame, window)
+
+		if key := opencv.WaitKey(10); key == 27 {
+			os.Exit(0)
+		}
+	}
+	opencv.WaitKey(0)
 }
